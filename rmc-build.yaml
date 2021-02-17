@@ -1,8 +1,10 @@
 context: conan
 configurations:
-#  - any:
-#      build_type: {Debug, RelWithDebInfo, Release}
-#      shared: {False, True}
-  - imports:
-      - linux_defaults
-#  - ubuntu14.04-armhf-gcc4.9:
+  - any:
+      build_type: {RelWithDebInfo}
+
+  - ubuntu14.04-armhf-gcc4.9:
+  - osl42-x86_64:
+  - osl42-x86_64-gcc8:
+  - osl15-x86_64:
+  - osl15-x86_64-gcc8:
