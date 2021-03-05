@@ -51,7 +51,9 @@ class Multicam_DatasetConan(ConanFile):
     #       package dependencies
     #       use conan syntax, e.g. "OtherLib/2.1@otheruser/testing"
     #
-    requires = []
+    requires = [
+        "boost/1.58.0@3rdparty/stable",
+    ]
 
     # * build_requires (list) [optional]
     #       package build dependencies, i.e.
@@ -63,7 +65,9 @@ class Multicam_DatasetConan(ConanFile):
     #
     #       use conan syntax, e.g. "OtherLib/2.1@otheruser/testing"
     #
-    build_requires = []
+    build_requires = [
+        "gtest/1.10.0@3rdparty/stable",
+    ]
 
     # ######################################################### #
     #               build system information
@@ -151,7 +155,7 @@ class Multicam_DatasetConan(ConanFile):
     # necessary generators:
     #       cmake_path sets module and prefix path (used at build stage)
     #       (see https://docs.conan.io/en/latest/reference/generators/cmake_paths.html)
-    generators = "cmake_paths"
+    generators = ["cmake_paths", "virtualenv"]
 
     def init_cmake(self):
         """internal function that configures the cmake builder"""
