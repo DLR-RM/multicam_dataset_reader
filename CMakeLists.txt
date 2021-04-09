@@ -50,3 +50,18 @@ option(BUILD_TESTS "Build tests" ON)
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTS)
     add_subdirectory("${PROJECT_SOURCE_DIR}/test")
 endif()
+
+# install
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+        MulticamDatasetVersion.cmake
+        VERSION ${PACKAGE_VERSION}
+        COMPATIBILITY AnyNewerVersion
+)
+
+install(TARGETS multicam_dataset
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
+        RUNTIME DESTINATION bin
+        INCLUDES DESTINATION include
+        )
