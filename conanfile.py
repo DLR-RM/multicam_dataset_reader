@@ -16,7 +16,7 @@ class Multicam_DatasetConan(ConanFile):
 
     # * author (string) [required]
     #       package provider (and maintainer)
-    author = "sewt_ma <marco.sewtz@dlr.de>"
+    author = "Marco Sewtz <marco.sewtz@dlr.de>"
 
     # * developers (list) [optional]
     #       additional list of package developers, excluding the 'author'
