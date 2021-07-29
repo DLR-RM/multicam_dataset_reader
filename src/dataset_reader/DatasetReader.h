@@ -7,6 +7,8 @@
 
 #include "Filesystem.h"
 
+#include <string>
+
 namespace MD{
 
 class DatasetReader{
@@ -26,7 +28,7 @@ public:
 	 * Set the dataset root to a new destination.
 	 * \param root_path path to root
 	 */
-	void load(const fs::path& root_path);
+	void load(const fs::path& root);
 
 	/**
 	 * Return current dataset root.
@@ -39,13 +41,13 @@ public:
 	 * \param dataset_root path to dataset
 	 * \return True if valid, False otherwise
 	 */
-	static bool is_valid_dataset(const fs::path& dataset_root);
+	static bool is_valid_dataset(const fs::path& root);
 
 	/**
-	 * Will check if the dataset is initialized and ready to use.
+	 * Will return whether the dataset has been initialized.
 	 * \return True if init and ready, False otherwise
 	 */
-	bool is_init() const;
+	bool is_init() const { return m_is_init; }
 
 	/**
 	 * Reset current dataset.
@@ -54,6 +56,7 @@ public:
 
 private:
 	fs::path m_dataset_root;
+	bool m_is_init = false;
 };
 
 }

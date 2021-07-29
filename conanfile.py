@@ -52,7 +52,7 @@ class Multicam_DatasetConan(ConanFile):
     #       use conan syntax, e.g. "OtherLib/2.1@otheruser/testing"
     #
     requires = [
-        "boost/[~1.66.0]@3rdparty/stable",
+        "boost/[~1.58.0]@3rdparty/stable",
     ]
 
     # * build_requires (list) [optional]
