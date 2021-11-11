@@ -74,6 +74,6 @@ if(${MDR_utils_SUPPORTED})
     endif()
 
     # Create config file
-    CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/Filesystem.config.h.in ${CMAKE_CURRENT_BINARY_DIR}/Filesystem.config.h)
+    CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/Platform.config.h.in ${CMAKE_CURRENT_BINARY_DIR}/Platform.config.h)
 endif()
 
