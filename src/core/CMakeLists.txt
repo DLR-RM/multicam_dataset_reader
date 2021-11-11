@@ -45,8 +45,8 @@ MDR_library_project(core
 #       AUTOMOC SHARED STATIC NOINSTALL NOEXPORT
 #       LANG __lang__
 #       CONFIGS __configs__
-#       SOURCES __sources__
-#       HEADERS __headers__
+       SOURCES *.cc
+       HEADERS *.h
 #       RESOURCES __resources__
 #       EXCLUDES __excludes__
 #       INTERFACE __interface_headers__
@@ -54,7 +54,7 @@ MDR_library_project(core
 #       INCLUDE_DIRS __include_dirs__
 #       LIBRARY_DIRS __library_dirs__
 #       LIBRARIES __libraries__
-#       DEPENDENCIES __depends__
+       DEPENDENCIES utils
 )
 
 #
