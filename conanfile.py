@@ -69,7 +69,7 @@ class Multicam_DatasetConan(ConanFile):
     #       use conan syntax, e.g. "OtherLib/2.1@otheruser/testing"
     #
     build_requires = [
-        "gtest/1.10.0@3rdparty/stable"
+         "gtest/[~1.7.0]@3rdparty/stable",
     ]
 
     # ######################################################### #
