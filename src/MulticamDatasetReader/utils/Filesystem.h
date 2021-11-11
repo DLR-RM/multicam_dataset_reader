@@ -2,8 +2,8 @@
 // Created by sewt_ma on 11/9/21.
 //
 
-#ifndef IGEL_SLAM_FILESYSTEM_H
-#define IGEL_SLAM_FILESYSTEM_H
+#ifndef MDR_FILESYSTEM_H
+#define MDR_FILESYSTEM_H
 
 #include <Filesystem.config.h>
 
@@ -26,10 +26,10 @@ namespace fs=std::experimental::filesystem;
 
 #include <set>
 
-namespace IGEL{
+namespace MDR{
 
 std::set<fs::path> get_sorted_directory_content(const fs::path& p);
 
 }
 
-#endif //IGEL_SLAM_FILESYSTEM_H
+#endif //MDR_FILESYSTEM_H

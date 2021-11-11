@@ -51,7 +51,7 @@ MDR_library_project(utils
 #       EXCLUDES __excludes__
 #       INTERFACE __interface_headers__
 #       INTERFACE_STRIP_PATH __strip_path__
-    INCLUDE_DIRS ${Boost_INCLUDE_DIRS} ${CMAKE_CURRENT_BINARY_DIR}
+    INCLUDE_DIRS ${Boost_INCLUDE_DIRS} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_SOURCE_DIR}/src
     LIBRARY_DIRS ${Boost_LIBRARY_DIRS}
     LIBRARIES ${Boost_LIBRARIES}
 #       DEPENDENCIES __depends__

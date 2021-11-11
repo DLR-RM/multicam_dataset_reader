@@ -1,7 +1,7 @@
 !Project
 build_configurations: [osl15-x86_64]
 build_default_version: null
-build_targets: [src/utils, src/core]
+build_targets: [src/MulticamDatasetReader/utils, src/MulticamDatasetReader/core]
 builder: internal
 lang: c++14
 last_updated: 1636626511.9187
