@@ -1,0 +1,22 @@
+#!/bin/sh -x
+
+# cmake generated LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=@TEST_WRAPPER_LD_PATH@
+
+# extra environment
+@TEST_WRAPPER_ADDITIONAL_ENV@
+
+# execute setup
+@TEST_WRAPPER_SETUP_COMMAND@
+
+# change to working directory
+pushd @TEST_WRAPPER_WORKSPACE_DIR@
+
+# execute command
+@TEST_WRAPPER_EXECUTABLE@ @TEST_WRAPPER_ARGS@ $@
+
+# change back
+popd
+
+# execute shutdown
+@TEST_WRAPPER_SHUTDOWN_COMMAND@
