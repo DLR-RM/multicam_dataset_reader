@@ -59,7 +59,7 @@ endif()
 #
 # global build variables
 #
-set(MDR_INCLUDE_DIR ${MDR_ROOT_DIR})
+set(MDR_INCLUDE_DIR ${MDR_ROOT_DIR}/src)
 set(MDR_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 set(MDR_CMAKE_TARGET_PROPERTIES_FILE "${CMAKE_CURRENT_BINARY_DIR}/MulticamDatasetReaderTargetProperties.cmake")
 file(REMOVE "${MDR_CMAKE_TARGET_PROPERTIES_FILE}")
