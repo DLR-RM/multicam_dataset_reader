@@ -51,7 +51,7 @@ MDR_library_project(core
 #       EXCLUDES __excludes__
 #       INTERFACE __interface_headers__
 #       INTERFACE_STRIP_PATH __strip_path__
-       INCLUDE_DIRS ${OpenCV_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/src
+       INCLUDE_DIRS ${OpenCV_INCLUDE_DIRS}
        LIBRARY_DIRS ${OpenCV_LIBRARY_DIRS}
        LIBRARIES ${OpenCV_LIBS}
        DEPENDENCIES utils

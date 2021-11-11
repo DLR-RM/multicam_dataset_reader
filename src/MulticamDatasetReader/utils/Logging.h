@@ -8,7 +8,8 @@
 #include <string>
 using message_type_t = std::string;
 
-namespace MD::Log{
+namespace MDR{
+namespace Log{
 
 enum class log_level_value{
 	error = 1,
@@ -28,5 +29,5 @@ void error(const message_type_t& msg, const std::string& line_ending="\n\r");
 
 
 }
-
+}
 #endif //MULTICAM_DATASET_LOGGING_H

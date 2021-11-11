@@ -40,12 +40,12 @@ MDR_executable_project(tests
 #       AUTOMOC
 #       LANG __lang__
 #       CONFIGS __configs__
-#       SOURCES __sources__
+       SOURCES *.cc
 #       HEADERS __headers__
 #       RESOURCES __resources__
 #       EXCLUDES __excludes__
         INCLUDE_DIRS ${gtest_INCLUDE_DIRS} ${gdal_INCLUDE_DIRS} ${PROJECT_SOURCE_DIR}/src
-        LIBRARY_DIRS ${gtest_LIBRARY_DIRS}
+        LIBRARY_DIRS ${gtest_LIBRARY_DIRS} ${gdal_LIBRARY_DIRS}
         LIBRARIES ${gtest_LIBRARIES}
         DEPENDENCIES core
 )
