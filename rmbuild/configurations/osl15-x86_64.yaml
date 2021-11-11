@@ -73,7 +73,7 @@ dependencies:
       conan:
   
   gtest:
-    pkgconfig:
+    cmake:
       conan:
 
   gdal:
