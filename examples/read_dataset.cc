@@ -3,14 +3,17 @@
 //
 
 #include <dataset_reader/DatasetReader.h>
-#include <dataset_reader/Filesystem.h>
 
 #include <iostream>
+#include <iomanip>
 
 int main(int argc, char** argv){
-	fs::path path = "/home/sewt_ma/projects/image-rect-test/mcd_sc01_run01";
-	MD::DatasetReader reader(path);
+	MD::DatasetReader reader("/home_local/datasets/mcd4/mcd4_s0_r0");
 
-	std::cout << "end" << std::endl;
+	while(not reader.is_at_end()){
+		reader.advance();
+		std::cout << std::fixed << reader.get_next_t() << std::endl;
+	}
 	return 0;
 }
+
