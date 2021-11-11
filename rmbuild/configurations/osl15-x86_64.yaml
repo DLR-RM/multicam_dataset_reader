@@ -62,44 +62,10 @@ platform:
 # [required, can be empty]
 #
 dependencies:
-  #
-  # sw packages that are used inside
-  # your project.
-  #
-  # syntax:
-  #   <pkg_name>:
-  #     #only one section of cmake, rmpm, pkgconfig
-  #     cmake:
-  #       version:       [string, optional]
-  #       components:    [array of strings, optional]
-  #       optional:      [boolean, optional]
-  #       rmpm:          [string, optional]
-  #     pkgconfig:
-  #       query:         [string, optional]
-  #       optional:      [boolean, optional]
-  #       rmpm:          [string, optional]
-  #     manual:
-  #       include_dirs:  [array of strings,  required]
-  #       library_dirs:  [array of strings, required]
-  #       libraries:     [array of strings, required]
-  #       rmpm:          [string, optional]
-  #
-  # examples:
-  #   Boost:
-  #     cmake:
-  #       version: 1.58
-  #       components: system
-  #       optional: true
-  #
-  #   OpenCV:
-  #     cmake:
-  #       rmpm: "sw.OpenCV==3.1"
-  #       components: [ highgui ]
-  #
-  #   zlib
-  #     pkgconfig:
-  #       query: zlib=1.2.8
-  #       optional: true
+  Boost:
+    cmake:
+      components: [ "filesystem" ]
+      conan:
   
 
 #
