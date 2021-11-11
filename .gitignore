@@ -1,6 +1,14 @@
 # ignore user build directories
 build*/*
 
+# rmbuild generated cmake files
+*Info.cmake
+rmbuild/CMake*
+
+# rmbuild default build and install dirs
+.build.*
+.install.*
+
 # Created by https://www.toptal.com/developers/gitignore/api/cmake,c++,vscode,python,matlab,clion,git,conan
 # Edit at https://www.toptal.com/developers/gitignore?templates=cmake,c++,vscode,python,matlab,clion,git,conan
 
