@@ -19,13 +19,13 @@ enum class log_level_value{
 	all   = 5
 };
 
-void debug(const message_type_t& msg, const std::string& line_ending="\n\r");
+void debug(const message_type_t& msg, const std::string& line_ending="\n");
 
-void info(const message_type_t& msg, const std::string& line_ending="\n\r");
+void info(const message_type_t& msg, const std::string& line_ending="\n");
 
-void warn(const message_type_t& msg, const std::string& line_ending="\n\r");
+void warn(const message_type_t& msg, const std::string& line_ending="\n");
 
-void error(const message_type_t& msg, const std::string& line_ending="\n\r");
+void error(const message_type_t& msg, const std::string& line_ending="\n");
 
 
 }

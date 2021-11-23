@@ -11,3 +11,23 @@ std::set<fs::path> MDR::get_sorted_directory_content(const fs::path& p) {
 	}
 	return set;
 }
+
+std::vector<fs::path> MDR::get_dirs(const fs::path &p) {
+	std::vector<fs::path> items;
+	for(const auto& item : fs::directory_iterator(p)){
+		if(fs::is_directory(item)){
+			items.push_back(item);
+		}
+	}
+	return items;
+}
+
+std::vector<fs::path> MDR::get_files(const fs::path &p) {
+	std::vector<fs::path> items;
+	for(const auto& item : fs::directory_iterator(p)){
+		if(fs::is_regular_file(item)){
+			items.push_back(item);
+		}
+	}
+	return items;
+}

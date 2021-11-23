@@ -22,7 +22,14 @@ public:
      *        interpreted as depth data
      * \param lazy_load enable lazy loading
      */
+	explicit
     Image(fs::path image_path, bool data_is_depth=false, bool lazy_load=true);
+
+	/**
+	 * Copy constructor
+	 * \param img other image object
+	 */
+	Image(const Image& img);
 
     /**
      * Tell whether the data is depth

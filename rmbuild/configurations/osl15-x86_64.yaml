@@ -71,6 +71,10 @@ dependencies:
     cmake:
       components: [ "core", "imgcodecs" ]
       conan:
+
+  Eigen:
+    cmake:
+      conan:
   
   gtest:
     cmake:

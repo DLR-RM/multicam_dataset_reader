@@ -20,6 +20,16 @@ Image::Image(fs::path image_path, bool data_is_depth, bool lazy_load) :
     }
 }
 
+Image::Image(const Image &img) {
+	// copy info
+	this->m_is_depth = img.m_is_depth;
+	this->m_data_path = img.m_data_path;
+
+	if(img.is_loaded()){
+		img.m_data.copyTo(this->m_data);
+	}
+}
+
 void Image::load(){
     // checks
     if(not fs::exists(path())){
@@ -43,7 +53,7 @@ void Image::load(){
         m_data = cv::imread(path().string(), cv::IMREAD_ANYCOLOR);
     }
     
-    // set flag if load was successfull
+    // set flag if load was successful
     data_is_loaded = not m_data.empty();
 }
 

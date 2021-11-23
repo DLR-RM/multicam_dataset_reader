@@ -54,7 +54,8 @@ MDR_executable_project(tests
 # additional rules (only apply if target is supported)
 #
 if(${MDR_tests_SUPPORTED})
-
+    configure_file(test.jpg ${CMAKE_BINARY_DIR}/src/tests/test.jpg COPYONLY)
+    configure_file(test.png ${CMAKE_BINARY_DIR}/src/tests/test.png COPYONLY)
     #
     # add test command (used by 'make test')
     #  NAME: name of the test [required]
@@ -67,7 +68,7 @@ if(${MDR_tests_SUPPORTED})
             COMMAND __cmd__
     #        ARGS __args__
     #        ENVIRONMENT __env__
-    #        WORKING_DIRECTORY __path__
+    #        WORKING_DIRECTORY
     )
 
 endif()

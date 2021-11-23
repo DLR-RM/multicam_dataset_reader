@@ -1,5 +1,5 @@
 #
-#  ### library project ###
+#  ### executable project ###
 # configuration variables:
 # __lang__          : language of the project (c, c++, c++gnu, c++11, c++11gnu, c++14, c++14gnu, c++17, c+17gnu)
 #                       [str, default is project default]
@@ -13,10 +13,6 @@
 #                       [list, default is none]
 # __excludes__      : list of exluded source and header files, can contain patterns (e.g. "test/test.cc", "texture", excludeme.cc"
 #                       [list, default is none]
-# __interface__     : list of public header files, i.e. headers that are installed as API, can contain wildcard pattern (e.g. "*.h" "test.hpp")
-#                       [list, default ist same as HEADERS]
-# __strip_path__    : strip path for installing header files (e.g. "mypath", ${Boost_INCLUDE_DIR})
-#                       [path, default is "${${PROJECT_NAME}_ROOT_DIR}/.."]
 # __include_dirs__  : list of required include dirs without dependencies (e.g. "mypath", ${Boost_INCLUDE_DIR})
 #                       [list, default is project none]
 # __library_dirs__  :  list of required library dirs without dependencies (e.g. "mypath", ${Boost_LIBRARY_DIR})
@@ -29,9 +25,7 @@
 #
 # configuration flags:
 # AUTOMOC           : execute qt4/5 automoc and include generated files (requires fount qt)
-# SHARED/STATIC     : force creation of shared or static library
 # NOINSTALL         : don't install the library (private)
-# NOEXPORT          : install library, but don't expose it to dependencies (protected)
 #
 # Note:
 # the dependencies, i.e. the cmake 'find_package' commands, usually set the variables
@@ -41,39 +35,27 @@
 # use them whenever you can!
 #
 
-MDR_library_project(utils
-#       AUTOMOC SHARED STATIC NOINSTALL NOEXPORT
+MDR_executable_project(example_load_dataset
+#       AUTOMOC NOINSTALL
 #       LANG __lang__
 #       CONFIGS __configs__
-    SOURCES *.cc
-    HEADERS *.h
+       SOURCES *.cc
+#       HEADERS __headers__
 #       RESOURCES __resources__
 #       EXCLUDES __excludes__
-#       INTERFACE __interface_headers__
-#       INTERFACE_STRIP_PATH __strip_path__
-    INCLUDE_DIRS ${OpenCV_INCLUDE_DIRS}  ${Boost_INCLUDE_DIRS}  ${EIGEN_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_SOURCE_DIR}/src
-    LIBRARY_DIRS ${OpenCV_LIBRARY_DIRS} ${Boost_LIBRARY_DIRS}
-    LIBRARIES ${OpenCV_LIBS} ${Boost_LIBRARIES}
-#       DEPENDENCIES __depends__
+#       INCLUDE_DIRS __include_dirs__
+#       LIBRARY_DIRS __library_dirs__
+#       LIBRARIES __libraries__
+       DEPENDENCIES core
 )
 
 #
 # additional rules (only apply if target is supported)
 #
-if(${MDR_utils_SUPPORTED})
-    # Platform Checks
-    cmake_policy(SET CMP0075 NEW)
-    INCLUDE(CheckIncludeFileCXX)
-    set(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} ${Boost_LIBRARIES})
-    CHECK_INCLUDE_FILE_CXX("filesystem" HAS_STD_FILESYSTEM)
-    CHECK_INCLUDE_FILE_CXX("experimental/filesystem" HAS_EXP_FILESYSTEM)
-    CHECK_INCLUDE_FILE_CXX("boost/filesystem.hpp" HAS_BOOST_FILESYSTEM)
+if(${MDR_example_load_dataset_SUPPORTED})
 
-    if(NOT HAS_STD_FILESYSTEM AND NOT HAS_EXP_FILESYSTEM AND NOT HAS_BOOST_FILESYSTEM)
-        message(FATAL_ERROR "Not filesystem found")
-    endif()
+    ### example 1: link target to other name
+    #add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ln -sf ${PROJECT_NAME} ${PROJECT_NAME}_link)
+    #install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_link DESTINATION bin)
 
-    # Create config file
-    CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/Platform.config.h.in ${CMAKE_CURRENT_BINARY_DIR}/Platform.config.h)
 endif()
-
