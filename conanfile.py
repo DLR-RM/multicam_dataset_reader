@@ -54,7 +54,7 @@ class Multicam_DatasetConan(ConanFile):
     requires = [
         "boost/[>=1.58.0]@3rdparty/stable",
         "eigen/[>=3.2.8]@3rdparty/stable",
-        "opencv/[>=3.0]@3rdparty/stable",
+        "opencv/[>=4]@3rdparty/unstable",
         "gdal/[>=1.10.1]@3rdparty/stable"
     ]
 
@@ -70,6 +70,7 @@ class Multicam_DatasetConan(ConanFile):
     #
     build_requires = [
          "gtest/[~1.7.0]@3rdparty/stable",
+         "CMake/[>=3.17]@3rdparty/stable"
     ]
 
     # ######################################################### #

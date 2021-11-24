@@ -7,6 +7,10 @@
 
 #include <MulticamDatasetReader/utils/Filesystem.h>
 
+#include <list>
+#include <tuple>
+#include <vector>
+
 namespace MDR {
 
 class InertialSensor {
@@ -31,11 +35,16 @@ public:
 	bool is_loaded() const { return m_is_loaded; }
 
 private:
+	void parse_frames_file();
+
 	/** path to frames file */
 	fs::path m_frames_file_path;
 
 	/** path to sensor file */
 	fs::path m_sensor_file_path;
+
+	/** data list */
+	std::list<std::tuple<double, std::vector<double>>> m_data;
 
 	/** is sensor loaded */
 	bool m_is_loaded;

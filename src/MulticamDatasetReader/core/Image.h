@@ -5,15 +5,16 @@
 #ifndef MDR_IMAGE_H
 #define MDR_IMAGE_H
 
-#include <MulticamDatasetReader/utils/Filesystem.h>
+#include "Measurement.h"
 
+#include <MulticamDatasetReader/utils/Filesystem.h>
 #include <opencv2/core.hpp>
 
 #include <mutex>
 
 namespace MDR{
 
-class Image {
+class Image : Measurement{
 public:
     /**
      * Create a new Image
@@ -46,22 +47,24 @@ public:
     /**
      * Load data from disk
      */
-    void load();
+    void load() override;
 
     /**
      * Unload data
      */
-    void unload();
+    void unload() override;
 
     /**
      * Return whether the data is loaded
      */
-    bool is_loaded() const { return data_is_loaded; }
+    bool is_loaded() const override { return data_is_loaded; }
 
     /**
      * get image matrix
      */
     cv::Mat matrix();
+
+	bool can_lazy_load() const override { return true; }
 
 private:
     /** internal data representation */

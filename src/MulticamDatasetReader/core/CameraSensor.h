@@ -6,6 +6,7 @@
 #define MULTICAMDATASETREADER_CAMERASENSOR_H
 
 #include "Image.h"
+#include "Sensor.h"
 
 #include <MulticamDatasetReader/utils/Filesystem.h>
 #include <Eigen/Eigen>
@@ -16,20 +17,18 @@
 
 namespace MDR {
 
-class CameraSensor {
+class CameraSensor : Sensor<Image> {
 public:
 	/**
 	 * Create a new camera sensor
-	 * \param frames_file path to file containing timestamp and data mapping
-	 * \param data_path path to directory containing data
-	 * \param sensor_file path to file containing sensor configuration
+	 * \param sensor_name name of this sensor
+	 * \param sensor_root_path root path of the sensor
 	 * \param is_depth whether this sensor is depth or not
 	 * \param is_lazy_load whether the data shall lazy load
 	 * \param load load sensor
 	 */
-	CameraSensor(fs::path frames_file,
-				 fs::path data_path,
-				 fs::path sensor_file,
+	CameraSensor(std::string sensor_name,
+				 fs::path sensor_root_path,
 				 bool is_depth,
 				 bool is_lazy_load=true,
 				 bool load=true);
@@ -52,6 +51,9 @@ public:
 	bool is_loaded() const { return m_is_loaded;}
 
 private:
+	/** name of sensor */
+	std::string m_sensor_name;
+
 	/**
 	 * Parse the frames file
 	 */
@@ -62,17 +64,7 @@ private:
 	 */
 	void parse_sensor_file();
 
-	/** list of image references */
-	std::list<std::tuple<double, Image>> m_data_list;
-
-	/** path to frames file */
-	fs::path m_frames_file_path;
-
-	/** path to data directory */
-	fs::path m_data_path;
-
-	/** path to config file */
-	fs::path m_sensor_file_path;
+	/** sensor root path */
 
 	/** is this sensor a depth sensor */
 	bool m_is_depth;

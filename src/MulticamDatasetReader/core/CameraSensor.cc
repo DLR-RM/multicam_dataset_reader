@@ -18,6 +18,7 @@ MDR::CameraSensor::CameraSensor(fs::path frames_file,
 								bool is_depth,
 								bool is_lazy_load,
                                 bool load) :
+		Sensor<Image>(sensor_file.string()),
 		m_frames_file_path(std::move(frames_file)),
 		m_data_path(std::move(data_path)),
 		m_sensor_file_path(std::move(sensor_file)),
@@ -71,12 +72,12 @@ void MDR::CameraSensor::parse_frames_file() {
 					m_frames_file_path.parent_path() / parts[1],
 					m_is_depth,
 					m_is_lazy_load);
-			m_data_list.emplace_back(std::stod(parts[0]), img);
+			this->insert(std::stod(parts[0]), img);
 		}
 	}
 
 	Log::debug("Created "
-		+ std::to_string(m_data_list.size())
+		+ std::to_string(this->size())
 		+ " data entries");
 
 	// close file
