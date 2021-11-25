@@ -51,8 +51,29 @@ public:
 	bool is_loaded() const { return m_is_loaded;}
 
 private:
-	/** name of sensor */
-	std::string m_sensor_name;
+	/**
+	 * Construct frames file name
+	 * \return path to frames file
+	 */
+	fs::path get_frames_file() const {
+		return (get_path()/("frames_" + get_name() + ".txt"));
+	}
+
+	/**
+	 * Construct sensor file name
+	 * \return path to sensor file
+	 */
+	fs::path get_sensor_file() const {
+		return (get_path()/("sensor_" + get_name() + ".txt"));
+	}
+
+	/**
+	 * Construct data path
+	 * \return path to data directory
+	 */
+	fs::path get_data_path() const {
+		return (get_path()/get_name());
+	}
 
 	/**
 	 * Parse the frames file
@@ -63,8 +84,6 @@ private:
 	 * Parse the sensor file
 	 */
 	void parse_sensor_file();
-
-	/** sensor root path */
 
 	/** is this sensor a depth sensor */
 	bool m_is_depth;

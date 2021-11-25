@@ -12,16 +12,12 @@
 #include <sstream>
 #include <string>
 
-MDR::CameraSensor::CameraSensor(fs::path frames_file,
-								fs::path data_path,
-								fs::path sensor_file,
+MDR::CameraSensor::CameraSensor(std::string sensor_name,
+								fs::path sensor_root_path,
 								bool is_depth,
 								bool is_lazy_load,
                                 bool load) :
-		Sensor<Image>(sensor_file.string()),
-		m_frames_file_path(std::move(frames_file)),
-		m_data_path(std::move(data_path)),
-		m_sensor_file_path(std::move(sensor_file)),
+		Sensor<Image>(sensor_name, sensor_root_path),
 		m_is_depth(is_depth),
 		m_is_lazy_load(is_lazy_load),
 		m_is_loaded(false)
@@ -45,14 +41,19 @@ void MDR::CameraSensor::load() {
 }
 
 void MDR::CameraSensor::parse_frames_file() {
-	// check if frames file exists
-	if(not fs::exists(m_frames_file_path)){
-		Log::error("Could not find " + m_frames_file_path.string());
-		return;
+	// check for frames file and data path
+	if(not fs::exists(get_frames_file())){
+		Log::error("Could not find " + get_frames_file().string());
+		std::exit(1);
+	}
+	if(not fs::exists(get_data_path())
+	   and not fs::is_directory(get_data_path())){
+		Log::error("Could not find directory " + get_data_path().string());
+		std::exit(1);
 	}
 
 	// open file
-	std::ifstream fp(m_frames_file_path.string());
+	std::ifstream fp(get_frames_file().string());
 
 	// read file line-by-line
 	std::string line;
@@ -69,7 +70,7 @@ void MDR::CameraSensor::parse_frames_file() {
 
 			// create data entry
 			Image img = Image(
-					m_frames_file_path.parent_path() / parts[1],
+					get_path() / parts[1],
 					m_is_depth,
 					m_is_lazy_load);
 			this->insert(std::stod(parts[0]), img);
@@ -86,13 +87,13 @@ void MDR::CameraSensor::parse_frames_file() {
 
 void MDR::CameraSensor::parse_sensor_file() {
 	// check if sensor file exists
-	if(not fs::exists(m_sensor_file_path)){
-		Log::error("Could not find " + m_sensor_file_path.string());
+	if(not fs::exists(get_sensor_file())){
+		Log::warn("Could not find " + get_sensor_file().string());
 		return;
 	}
 
 	// open file
-	std::ifstream fp(m_sensor_file_path.string());
+	std::ifstream fp(get_sensor_file().string());
 
 	// read line-by-line
 	std::string line;
