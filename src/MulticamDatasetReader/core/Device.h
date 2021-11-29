@@ -34,6 +34,12 @@ public:
 	 */
 	bool is_loaded() const { return m_is_loaded; }
 
+	/**
+	 * Return device path
+	 * \return device path
+	 */
+	fs::path get_path() const { return m_device_path; }
+
 private:
 	/**
 	 * Add a new vision sensor to camera list
@@ -52,10 +58,12 @@ private:
 	/**
 	 * Add a new inertial sensor to list
 	 * \param sensor_name sensor name
+	 * \param is_accel True if accel, False if gyro
 	 * \param load True if lazy load shall be activated,
 	 *             False otherwise
 	 */
 	void add_inertial_sensor(const std::string& sensor_name,
+							 bool is_accel,
 							 bool load);
 
 	/** path to device */
@@ -69,6 +77,10 @@ private:
 
 	/** whether this device is already loaded */
 	bool m_is_loaded;
+
+	////////////////////////////////////////////
+	// Dataset Properties
+	////////////////////////////////////////////
 };
 
 }

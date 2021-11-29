@@ -7,6 +7,7 @@
 
 #include "Image.h"
 #include "Sensor.h"
+#include "Globals.h"
 
 #include <MulticamDatasetReader/utils/Filesystem.h>
 #include <Eigen/Eigen>
@@ -17,7 +18,7 @@
 
 namespace MDR {
 
-class CameraSensor : Sensor<Image> {
+class CameraSensor : public Sensor<Image> {
 public:
 	/**
 	 * Create a new camera sensor
@@ -50,13 +51,25 @@ public:
 	 */
 	bool is_loaded() const { return m_is_loaded;}
 
+	/**
+	 * Check the given path if this sensor type is present
+	 * \param path path to check
+	 * \return True if this sensor was found, False otherwise
+	 */
+	static bool check_if_sensor_exists(const fs::path &path, bool is_depth);
+
 private:
 	/**
 	 * Construct frames file name
 	 * \return path to frames file
 	 */
 	fs::path get_frames_file() const {
-		return (get_path()/("frames_" + get_name() + ".txt"));
+		if(is_depth()){
+			return (get_path()/Globals::frames_file_depth);
+		}
+		else{
+			return (get_path()/Globals::frames_file_rgb);
+		}
 	}
 
 	/**
@@ -64,7 +77,12 @@ private:
 	 * \return path to sensor file
 	 */
 	fs::path get_sensor_file() const {
-		return (get_path()/("sensor_" + get_name() + ".txt"));
+		if(is_depth()){
+			return (get_path()/Globals::sensor_file_depth);
+		}
+		else{
+			return (get_path()/Globals::sensor_file_rgb);
+		}
 	}
 
 	/**
@@ -72,7 +90,12 @@ private:
 	 * \return path to data directory
 	 */
 	fs::path get_data_path() const {
-		return (get_path()/get_name());
+		if(is_depth()){
+			return (get_path()/Globals::data_path_depth);
+		}
+		else{
+			return (get_path()/Globals::data_path_rgb);
+		}
 	}
 
 	/**

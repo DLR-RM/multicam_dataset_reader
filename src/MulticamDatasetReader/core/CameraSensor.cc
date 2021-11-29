@@ -17,7 +17,10 @@ MDR::CameraSensor::CameraSensor(std::string sensor_name,
 								bool is_depth,
 								bool is_lazy_load,
                                 bool load) :
-		Sensor<Image>(sensor_name, sensor_root_path),
+		Sensor<Image>(
+				std::move(sensor_name),
+				std::move(sensor_root_path)
+				),
 		m_is_depth(is_depth),
 		m_is_lazy_load(is_lazy_load),
 		m_is_loaded(false)
@@ -136,3 +139,31 @@ void MDR::CameraSensor::parse_sensor_file() {
 	// close file
 	fp.close();
 }
+
+bool MDR::CameraSensor::check_if_sensor_exists(const boost::filesystem::path &path,
+											   bool is_depth) {
+	if(is_depth){
+		if(not fs::exists(path/Globals::frames_file_depth)){
+			return false;
+		}
+		if(not fs::exists(path/Globals::sensor_file_depth)){
+			return false;
+		}
+		if(not fs::exists(path/Globals::data_path_depth)){
+			return false;
+		}
+	}
+	else{
+		if(not fs::exists(path/Globals::frames_file_rgb)){
+			return false;
+		}
+		if(not fs::exists(path/Globals::sensor_file_rgb)){
+			return false;
+		}
+		if(not fs::exists(path/Globals::data_path_rgb)){
+			return false;
+		}
+	}
+	return true;
+}
+

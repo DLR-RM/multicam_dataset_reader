@@ -5,6 +5,10 @@
 #ifndef MULTICAMDATASETREADER_INERTIALSENSOR_H
 #define MULTICAMDATASETREADER_INERTIALSENSOR_H
 
+#include "InertiaMeasurement.h"
+#include "Globals.h"
+#include "Sensor.h"
+
 #include <MulticamDatasetReader/utils/Filesystem.h>
 
 #include <list>
@@ -13,15 +17,19 @@
 
 namespace MDR {
 
-class InertialSensor {
+class InertialSensor : public Sensor<InertiaMeasurement> {
 public:
 	/**
 	 * Create new inertial sensor
-	 * \param frames_file path to frames file
-	 * \param sensor_file path to sensor file
+	 * \param sensor_name name of this sensor
+	 * \param sensor_root root directory of this sensor
+	 * \param is_accel True if Accel, False if Gyro
 	 * \param load whether the data shall be loaded
 	 */
-	InertialSensor(fs::path frames_file, fs::path sensor_file, bool load=true);
+	InertialSensor(std::string sensor_name,
+				   fs::path sensor_root,
+				   bool is_accel,
+				   bool load=true);
 
 	/**
 	 * Load data
@@ -29,19 +37,56 @@ public:
 	void load();
 
 	/**
+	 * Return whether this sensor represent an accel or
+	 * gyro
+	 * \return True if accel, False if gyro
+	 */
+	bool is_accel() const { return m_is_accel; }
+
+	/**
 	 * Return whether this sensor is loaded
 	 * \return True if loaded, False otherwise
 	 */
 	bool is_loaded() const { return m_is_loaded; }
 
+	static bool check_if_sensor_exists(const boost::filesystem::path &path,
+									   bool is_accel);
+
 private:
 	void parse_frames_file();
+	void parse_sensor_file();
+
+	/**
+	 * Construct frames file path
+	 * \return path to frames file
+	 */
+	fs::path get_frames_file(){
+		if(is_accel()){
+			return (get_path()/Globals::frames_file_accel);
+		}
+		else{
+			return (get_path()/Globals::frames_file_gyro);
+		}
+	}
+
+	/**
+	 * Construct sensor file path
+	 * \return path to sensor file
+	 */
+	fs::path get_sensor_file(){
+		if(is_accel()){
+			return (get_path()/Globals::sensor_file_accel);
+		}
+		else{
+			return (get_path()/Globals::sensor_file_gyro);
+		}
+	}
 
 	/** path to frames file */
-	fs::path m_frames_file_path;
+	fs::path m_sensor_directory;
 
-	/** path to sensor file */
-	fs::path m_sensor_file_path;
+	/** intertial type */
+	bool m_is_accel;
 
 	/** data list */
 	std::list<std::tuple<double, std::vector<double>>> m_data;

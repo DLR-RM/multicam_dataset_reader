@@ -29,7 +29,8 @@ public:
 	 * \param root_path root path of this sensor
 	 */
 	Sensor(std::string sensor_name, fs::path root_path) :
-		m_name(std::move(sensor_name)){}
+		m_name(std::move(sensor_name)),
+		m_path(std::move(root_path)){}
 
 	/**
 	 * Get sensor name
@@ -102,6 +103,13 @@ public:
 	 * \return sampling time of active measurement
 	 */
 	double get_time_of_active_measurement(double t);
+
+	/**
+	 * Check the given path if this sensor type is present
+	 * \param path path to check
+	 * \return True if this sensor was found, False otherwise
+	 */
+	static bool check_if_sensor_exists(const fs::path& path){}
 
 private:
 	/** sensor name */
