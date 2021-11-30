@@ -1,8 +1,10 @@
 #!/bin/bash
 
 # create environment
-conan install . -if build -g virtualenv
-source build/activate.sh
+ENV_DIR=/tmp/cissy/MDR_env
+mkdir -p ${ENV_DIR}
+conan install . -if ${ENV_DIR} -g virtualenv
+source ${ENV_DIR}/activate.sh
 
 # set g++-8
 export CXX=g++-8
