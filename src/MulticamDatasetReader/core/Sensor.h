@@ -123,6 +123,9 @@ public:
 	 */
 	void insert(double t, const MeasurementType& measurement){
 		m_data_set.emplace(t, measurement);
+
+		// reset cache to start
+		m_cached_iterator = m_data_set.begin();
 	}
 
 	/**
@@ -138,7 +141,7 @@ public:
 	 * \return youngest time
 	 */
 	double get_last_sampling_time() const {
-		return m_data_set.end()->first;
+		return m_data_set.rbegin()->first;
 	}
 
 	/**
@@ -159,7 +162,7 @@ public:
 	}
 
 protected:
-	using data_set_t =  std::map<double, MeasurementType>;
+	using data_set_t = std::map<double, MeasurementType>;
 
 	/**
 	 * Get an iterator to the active measurement of requested time
@@ -188,12 +191,15 @@ private:
 
 	/** data set */
 	data_set_t m_data_set;
+
+	/** iterator cache */
+	typename data_set_t::iterator m_cached_iterator;
 };
 
 template<typename MeasurementType>
 typename MDR::Sensor<MeasurementType>::data_set_t::iterator
 Sensor<MeasurementType>::get_iterator_to_active_measurement(double t) {
-	static auto it = m_data_set.begin();
+	auto& it = m_cached_iterator;
 
 	// reset it if not valid
 	if(it == m_data_set.end()){
