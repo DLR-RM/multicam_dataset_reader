@@ -157,56 +157,119 @@ double Device::get_time_of_next_measurement(double t, SensorType type) {
 	}
 }
 
-double Device::get_first_sampling_time() const {
-	// get min values of all avaiable sensors
-	std::vector<double> list;
-	if(mp_sensor_rgb){
-		list.emplace_back(mp_sensor_rgb->get_first_sampling_time());
-	}
-	if(mp_sensor_depth){
-		list.emplace_back(mp_sensor_depth->get_first_sampling_time());
-	}
-	if(mp_sensor_accel){
-		list.emplace_back(mp_sensor_accel->get_first_sampling_time());
-	}
-	if(mp_sensor_gyro){
-		list.emplace_back(mp_sensor_gyro->get_first_sampling_time());
-	}
+double Device::get_first_sampling_time(SensorType type) const {
+	switch(type) {
+		case SensorType::rgb:
+			if(mp_sensor_rgb){
+				return mp_sensor_rgb->get_first_sampling_time();
+			}
+			else{
+				Log::error("Device has no RGB sensor");
+				return -1;
+			}
+		case SensorType::depth:
+			if(mp_sensor_depth){
+				return mp_sensor_depth->get_first_sampling_time();
+			}
+			else{
+				Log::error("Device has no Depth sensor");
+				return -1;
+			}
+		case SensorType::accel:
+			if(mp_sensor_accel){
+				return mp_sensor_accel->get_first_sampling_time();
+			}
+			else{
+				Log::error("Device has no Accel sensor");
+				return -1;
+			}
+		case SensorType::gyro:
+			if(mp_sensor_gyro){
+				return mp_sensor_gyro->get_first_sampling_time();
+			}
+			else{
+				Log::error("Device has no Gyro sensor");
+				return -1;
+			}
+		default:
+			// get min values of all available sensors
+			std::vector<double> list;
+			if(mp_sensor_rgb){
+				list.emplace_back(mp_sensor_rgb->get_first_sampling_time());
+			}
+			if(mp_sensor_depth){
+				list.emplace_back(mp_sensor_depth->get_first_sampling_time());
+			}
+			if(mp_sensor_accel){
+				list.emplace_back(mp_sensor_accel->get_first_sampling_time());
+			}
+			if(mp_sensor_gyro){
+				list.emplace_back(mp_sensor_gyro->get_first_sampling_time());
+			}
 
-	// check if there is a value
-	if(list.empty()){
-		Log::error("This device has no sensors");
-		return -1;
-	}
-	else{
-		// return min value
-		return *std::min_element(list.begin(), list.end());
+			// check if there is a value
+			if(list.empty()){
+				Log::error("This device has no sensors");
+				return -1;
+			}else{
+				// return min value
+				return *std::min_element(list.begin(), list.end());
+			}
 	}
 }
 
-double Device::get_last_sampling_time() const {
-	// get max values of all avaiable sensors
-	std::vector<double> list;
-	if(mp_sensor_rgb){
-		list.emplace_back(mp_sensor_rgb->get_last_sampling_time());
-	}
-	if(mp_sensor_depth){
-		list.emplace_back(mp_sensor_depth->get_last_sampling_time());
-	}
-	if(mp_sensor_accel){
-		list.emplace_back(mp_sensor_accel->get_last_sampling_time());
-	}
-	if(mp_sensor_gyro){
-		list.emplace_back(mp_sensor_gyro->get_last_sampling_time());
-	}
+double Device::get_last_sampling_time(SensorType type) const {
+	switch(type) {
+		case SensorType::rgb:
+			if (mp_sensor_rgb) {
+				return mp_sensor_rgb->get_last_sampling_time();
+			} else {
+				Log::error("Device has no RGB sensor");
+				return -1;
+			}
+		case SensorType::depth:
+			if (mp_sensor_depth) {
+				return mp_sensor_depth->get_last_sampling_time();
+			} else {
+				Log::error("Device has no Depth sensor");
+				return -1;
+			}
+		case SensorType::accel:
+			if (mp_sensor_accel) {
+				return mp_sensor_accel->get_last_sampling_time();
+			} else {
+				Log::error("Device has no Accel sensor");
+				return -1;
+			}
+		case SensorType::gyro:
+			if (mp_sensor_gyro) {
+				return mp_sensor_gyro->get_last_sampling_time();
+			} else {
+				Log::error("Device has no Gyro sensor");
+				return -1;
+			}
+		default:// get max values of all avaiable sensors
+			std::vector<double> list;
+			if (mp_sensor_rgb) {
+				list.emplace_back(mp_sensor_rgb->get_last_sampling_time());
+			}
+			if (mp_sensor_depth) {
+				list.emplace_back(mp_sensor_depth->get_last_sampling_time());
+			}
+			if (mp_sensor_accel) {
+				list.emplace_back(mp_sensor_accel->get_last_sampling_time());
+			}
+			if (mp_sensor_gyro) {
+				list.emplace_back(mp_sensor_gyro->get_last_sampling_time());
+			}
 
-	// check if there is a value
-	if(list.empty()){
-		Log::error("This device has no sensors");
-		return -1;
-	}
-	else{
-		// return min value
-		return *std::max_element(list.begin(), list.end());
+			// check if there is a value
+			if (list.empty()) {
+				Log::error("This device has no sensors");
+				return -1;
+			} else {
+				// return min value
+				return *std::max_element(list.begin(), list.end());
+			}
 	}
 }

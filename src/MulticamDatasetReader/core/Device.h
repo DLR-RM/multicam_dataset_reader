@@ -30,6 +30,11 @@ struct DeviceMeasurements{
 	std::shared_ptr<Image> depth;
 	std::shared_ptr<InertiaMeasurement> accel;
 	std::shared_ptr<InertiaMeasurement> gyro;
+
+	bool has_rgb() const { return (bool) rgb; }
+	bool has_depth() const { return (bool) depth; }
+	bool has_accel() const { return (bool) accel; }
+	bool has_gyro() const { return (bool) gyro; }
 };
 
 class Device {
@@ -97,20 +102,22 @@ public:
 	 * \param type
 	 * \return
 	 */
-	double get_time_of_next_measurement(double t, SensorType
-	                                    type=SensorType::all);
+	double get_time_of_next_measurement(double t,
+										SensorType type=SensorType::all);
 
 	/**
 	 * Get the first sampling time of any sensor
+	 * \param type select sensor type, or all
 	 * \return oldest time
 	 */
-	double get_first_sampling_time() const;
+	double get_first_sampling_time(SensorType type=SensorType::all) const;
 
 	/**
 	 * Get the last sampling time of any sensor
+	 * \param type select sensor type, or all
 	 * \return youngest time
 	 */
-	double get_last_sampling_time() const;
+	double get_last_sampling_time(SensorType type=SensorType::all) const;
 
 	/**
 	 * Return whether the given time is within the time bounds
