@@ -69,7 +69,7 @@ void MDR::InertialSensor::parse_frames_file() {
 		}
 	}
 	Log::debug("Created "
-		+ std::to_string(m_data.size())
+		+ std::to_string(size())
 		+ " data entries");
 
 	// close file
