@@ -88,9 +88,6 @@ private:
 	/** intertial type */
 	bool m_is_accel;
 
-	/** data list */
-	std::list<std::tuple<double, std::vector<double>>> m_data;
-
 	/** is sensor loaded */
 	bool m_is_loaded;
 };
