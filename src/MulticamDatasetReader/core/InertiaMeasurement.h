@@ -13,6 +13,9 @@ namespace MDR {
 
 class InertiaMeasurement : Measurement{
 public:
+	InertiaMeasurement(double ax, double ay, double az);
+	InertiaMeasurement(std::array<double, 3> data);
+
 	bool can_lazy_load() const override { return false;	}
 	void load() override;
 	void unload() override;
