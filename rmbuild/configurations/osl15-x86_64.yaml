@@ -69,7 +69,7 @@ dependencies:
 
   OpenCV:
     cmake:
-      components: [ "core", "imgcodecs" ]
+      components: [ "core", "imgcodecs", "highgui" ]
       conan:
 
   Eigen:
