@@ -43,9 +43,9 @@ MDR_executable_project(example_load_dataset
 #       HEADERS __headers__
 #       RESOURCES __resources__
 #       EXCLUDES __excludes__
-#       INCLUDE_DIRS __include_dirs__
-#       LIBRARY_DIRS __library_dirs__
-#       LIBRARIES __libraries__
+       INCLUDE_DIRS ${OpenCV_INCLUDE_DIRS}
+       LIBRARY_DIRS ${OpenCV_LIBRARY_DIRS}
+       LIBRARIES ${OpenCV_LIBS}
        DEPENDENCIES core
 )
 
