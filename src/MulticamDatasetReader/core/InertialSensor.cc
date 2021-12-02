@@ -65,7 +65,7 @@ void MDR::InertialSensor::parse_frames_file() {
 			double az = std::stod(parts[3]);
 
 			// insert
-			m_data.emplace_back(t,std::vector<double>({ax,ay,az}));
+			this->insert(t,{ax,ay,az});
 		}
 	}
 	Log::debug("Created "
