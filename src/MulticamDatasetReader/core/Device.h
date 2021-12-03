@@ -41,10 +41,11 @@ class Device {
 public:
 	/**
 	 * Create a new device
+	 * \param name name of the device
 	 * \param device_path path to device directory
 	 * \param load load device
 	 */
-	Device(fs::path device_path, bool load=true);
+	Device(std::string name, fs::path device_path, bool load=true);
 
 	/**
 	 * Load device data
@@ -62,6 +63,12 @@ public:
 	 * \return device path
 	 */
 	fs::path get_path() const { return m_device_path; }
+
+	/**
+	 * Return device name
+	 * \return device name
+	 */
+	std::string get_name() const { return m_name; }
 
 	/**
 	 * Return whether this device has a RGB sensor
@@ -136,6 +143,9 @@ public:
 	}
 
 private:
+	/** device name */
+	std::string m_name;
+
 	/** path to device */
 	fs::path m_device_path;
 

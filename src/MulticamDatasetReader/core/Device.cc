@@ -13,7 +13,8 @@
 
 using namespace MDR;
 
-Device::Device(fs::path device_path, bool load):
+Device::Device(std::string name, fs::path device_path, bool load):
+	m_name(std::move(name)),
 	m_device_path(std::move(device_path)),
 	m_is_loaded(false){
 	if(load) {
