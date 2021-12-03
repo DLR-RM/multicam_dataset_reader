@@ -81,15 +81,9 @@ bool InertialSensor::check_if_sensor_exists(const boost::filesystem::path &path,
 		if(not fs::exists(path/Globals::frames_file_accel)){
 			return false;
 		}
-		if(not fs::exists(path/Globals::sensor_file_accel)){
-			return false;
-		}
 	}
 	else{
 		if(not fs::exists(path/Globals::frames_file_gyro)){
-			return false;
-		}
-		if(not fs::exists(path/Globals::sensor_file_gyro)){
 			return false;
 		}
 	}

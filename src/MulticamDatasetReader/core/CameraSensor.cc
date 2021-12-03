@@ -146,18 +146,12 @@ bool MDR::CameraSensor::check_if_sensor_exists(const boost::filesystem::path &pa
 		if(not fs::exists(path/Globals::frames_file_depth)){
 			return false;
 		}
-		if(not fs::exists(path/Globals::sensor_file_depth)){
-			return false;
-		}
 		if(not fs::exists(path/Globals::data_path_depth)){
 			return false;
 		}
 	}
 	else{
 		if(not fs::exists(path/Globals::frames_file_rgb)){
-			return false;
-		}
-		if(not fs::exists(path/Globals::sensor_file_rgb)){
 			return false;
 		}
 		if(not fs::exists(path/Globals::data_path_rgb)){
