@@ -41,7 +41,7 @@ void MDR::Dataset::load() {
 }
 
 std::vector<DeviceMeasurements> Dataset::get(double t) {
-	std::vector<DeviceMeasurements> measurements(device_count());
+	std::vector<DeviceMeasurements> measurements;
 	std::for_each(m_devices.begin(), m_devices.end(),
 				  [&measurements, t](Device& d){
 		measurements.push_back(d.get(t));
