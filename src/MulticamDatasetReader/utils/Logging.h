@@ -27,6 +27,8 @@ void warn(const message_type_t& msg, const std::string& line_ending="\n");
 
 void error(const message_type_t& msg, const std::string& line_ending="\n");
 
+void set_log_level(log_level_value level);
+
 
 }
 }

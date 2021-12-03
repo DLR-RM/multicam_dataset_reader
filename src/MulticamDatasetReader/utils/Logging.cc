@@ -10,6 +10,10 @@ using namespace MDR::Log;
 
 log_level_value log_level = log_level_value::all;
 
+void MDR::Log::set_log_level(log_level_value level) {
+	log_level = level;
+}
+
 void MDR::Log::debug(const message_type_t& msg, const std::string& line_ending){
 	if(log_level >= log_level_value::debug){
 		std::cout << "\u001b[30;1mDEBUG\u001b[0m: " << msg << line_ending;
