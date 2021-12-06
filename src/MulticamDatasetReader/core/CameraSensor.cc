@@ -114,7 +114,7 @@ void MDR::CameraSensor::parse_sensor_file() {
 				double qy = std::stod(parts[4]);
 				double qz = std::stod(parts[5]);
 				double qw = std::stod(parts[6]);
-				m_pose = Utility::create_pose_matrix(px, py, pz, qx, qy, qz, qw);
+				set_pose(Utility::create_pose_matrix(px, py, pz, qx, qy, qz, qw));
 			}
 
 			// intrinsics have 4 or 5 elements

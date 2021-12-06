@@ -30,7 +30,8 @@ public:
 	 */
 	Sensor(std::string sensor_name, fs::path root_path) :
 		m_name(std::move(sensor_name)),
-		m_path(std::move(root_path)){}
+		m_path(std::move(root_path)),
+		m_pose(Eigen::Matrix4d::Identity()){}
 
 	/**
 	 * Get sensor name
@@ -178,6 +179,12 @@ protected:
 	 * \return iterator to next element
 	 */
 	typename data_set_t::iterator get_iterator_to_next_measurement(double t);
+
+	/**
+	 * Set extrinsic pose of this sensor
+	 * \param pose 4x4 pose matrix
+	 */
+	void set_pose(Eigen::Matrix4d& pose) { m_pose = pose; }
 
 private:
 	/** sensor name */

@@ -58,6 +58,12 @@ public:
 	 */
 	static bool check_if_sensor_exists(const fs::path &path, bool is_depth);
 
+	/**
+	 * Get intrinsics of this sensor
+	 * \return k Matrix
+	 */
+	cv::Mat get_intrinsics() const { return m_intrinsics; }
+
 private:
 	/**
 	 * Construct frames file name
@@ -116,9 +122,6 @@ private:
 
 	/** is the data loaded */
 	bool m_is_loaded;
-
-	/** pose of this sensor */
-	Eigen::Matrix4d m_pose;
 
 	/** intrinsics of this sensor */
 	cv::Mat m_intrinsics;

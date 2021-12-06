@@ -84,6 +84,12 @@ public:
 	 */
 	double get_last_sampling_time(SensorType type=SensorType::all) const;
 
+	/**
+	 * Get all devices in this dataset
+	 * \return vector of devices
+	 */
+	std::vector<Device>& get_devices() { return m_devices; }
+
 private:
 	/** root directory of this dataset */
 	fs::path m_dataset_root;
