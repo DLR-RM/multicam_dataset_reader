@@ -6,14 +6,21 @@
 #include <MulticamDatasetReader/utils/Logging.h>
 
 #include <opencv2/highgui.hpp>
+#include <tclap/CmdLine.h>
 
 #include <iostream>
 #include <thread>
 #include <chrono>
+#include <string>
 
 int main(int argc, char** argv){
+	TCLAP::CmdLine cmd("Example Load Dataset");
+	TCLAP::ValueArg<std::string> argInput("i", "input", "Path to Dataset", true, "", "");
+	cmd.add(argInput);
+	cmd.parse(argc, argv);
+
 	MDR::Log::set_log_level(MDR::Log::log_level_value::warn);
-	MDR::Dataset dataset("/home_local/datasets/mcd4_s0_r0");
+	MDR::Dataset dataset(argInput.getValue());
 
 	std::cout << std::to_string(dataset.get_first_sampling_time()) << std::endl;
 	std::cout << std::to_string(dataset.get_last_sampling_time())  << std::endl;
