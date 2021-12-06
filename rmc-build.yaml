@@ -4,7 +4,5 @@ configurations:
       build_type: {RelWithDebInfo}
 
   - ubuntu14.04-armhf-gcc4.9:
-  - osl42-x86_64:
-  - osl42-x86_64-gcc8:
   - osl15-x86_64:
   - osl15-x86_64-gcc8:
