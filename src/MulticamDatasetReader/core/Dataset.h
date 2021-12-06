@@ -63,12 +63,14 @@ public:
 	 * Get the time for the next measurement with respect to the
 	 * requested time. If the time is out of bounds, it will be either
 	 * the youngest or oldest measurement
-	 * \param t
-	 * \param type
-	 * \return
+	 * \param t requested time
+	 * \param type requested sensor type, or all sensors
+	 * \param sensor_name requested device, or all devices
+	 * \return time of next measurement
 	 */
 	double get_time_of_next_measurement(double t,
-	                                    SensorType type=SensorType::all);
+	                                    SensorType type=SensorType::all,
+										const std::string& device_name="");
 
 	/**
 	 * Get the first sampling time of any sensor
@@ -89,6 +91,19 @@ public:
 	 * \return vector of devices
 	 */
 	std::vector<Device>& get_devices() { return m_devices; }
+
+	/**
+	 * Get access to device by name
+	 * \param device_name requested device name
+	 * \return reference to device
+	 */
+	Device& get_device_by_name(const std::string& device_name);
+
+	/**
+	 * Get a list of all device names
+	 * \return vector of device names
+	 */
+	std::vector<std::string> get_device_names() const;
 
 private:
 	/** root directory of this dataset */

@@ -67,11 +67,38 @@ double Dataset::get_last_sampling_time(SensorType type) const {
 	return *std::max_element(device_times.begin(), device_times.end());
 }
 
-double Dataset::get_time_of_next_measurement(double t, SensorType type) {
-	std::vector<double> device_times;
+double Dataset::get_time_of_next_measurement(double t,
+											 SensorType type,
+											 const std::string& device_name) {
+	if(device_name.empty()) {
+		std::vector<double> device_times;
+		std::for_each(m_devices.begin(), m_devices.end(),
+		              [&device_times, t, type](Device &d) {
+			              device_times.push_back(d.get_time_of_next_measurement(t, type));
+		              });
+		return *std::min_element(device_times.begin(), device_times.end());
+	}
+	else{
+		return get_device_by_name(device_name).get_time_of_next_measurement(t, type);
+	}
+}
+
+std::vector<std::string> Dataset::get_device_names() const {
+	std::vector<std::string> names;
 	std::for_each(m_devices.begin(), m_devices.end(),
-				  [&device_times, t, type](Device& d){
-		device_times.push_back(d.get_time_of_next_measurement(t, type));
+	              [&names](const Device& d){
+		names.push_back(d.get_name());
 	});
-	return *std::min_element(device_times.begin(), device_times.end());
+	return names;
+}
+
+Device &Dataset::get_device_by_name(const std::string &device_name) {
+	auto it = std::find_if(m_devices.begin(), m_devices.end(),
+						   [&device_name](const Device& d){
+		return d.get_name() == device_name;
+	});
+	if(it == m_devices.end()){
+		Log::error("No device " + device_name + " known");
+	}
+	return *it;
 }
