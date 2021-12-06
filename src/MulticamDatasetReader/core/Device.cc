@@ -40,7 +40,7 @@ void Device::load() {
 	}
 	if(CameraSensor::check_if_sensor_exists(get_path(), true)){
 		mp_sensor_depth = std::make_unique<CameraSensor>(
-				Globals::sensor_name_rgb,
+				Globals::sensor_name_depth,
 				get_path(),
 				true,
 				true,
@@ -57,7 +57,7 @@ void Device::load() {
 	}
 	if(InertialSensor::check_if_sensor_exists(get_path(), true)){
 		mp_sensor_accel = std::make_unique<InertialSensor>(
-				Globals::sensor_name_gyro,
+				Globals::sensor_name_accel,
 				get_path(),
 				true,
 				true
