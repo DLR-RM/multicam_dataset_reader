@@ -30,7 +30,8 @@ public:
 	 */
 	Sensor(std::string sensor_name, fs::path root_path) :
 		m_name(std::move(sensor_name)),
-		m_path(std::move(root_path)){}
+		m_path(std::move(root_path)),
+		m_pose(Eigen::Matrix4d::Identity()){}
 
 	/**
 	 * Get sensor name
