@@ -1,0 +1,62 @@
+#
+#     Cmake configuration version file
+#
+# This file is part of DLR RMC project MulticamDatasetReader
+#
+
+#
+# version of this package
+#
+SET( PACKAGE_VERSION "@MDR_VERSION@" )
+SET( major @MDR_MAJOR_VERSION@ )
+SET( minor @MDR_MINOR_VERSION@ )
+SET( patch @MDR_PATCH_VERSION@ )
+
+         
+#
+# select version
+#
+set(PACKAGE_VERSION_COMPATIBLE 0)
+set(PACKAGE_VERSION_EXACT 0)
+
+#case 1: no version requested
+if(${PACKAGE_FIND_VERSION_COUNT} EQUAL 0)
+  #take the latest version
+  set(PACKAGE_VERSION_COMPATIBLE 1)
+
+#case 2: major requested
+elseif(${PACKAGE_FIND_VERSION_COUNT} EQUAL 1)
+  if(${PACKAGE_FIND_VERSION_MAJOR} EQUAL ${major})
+    set(PACKAGE_VERSION_COMPATIBLE 1)
+  endif()
+
+#case 3: major.minor requested
+elseif(${PACKAGE_FIND_VERSION_COUNT} EQUAL 2)
+  if(${PACKAGE_FIND_VERSION_MAJOR} EQUAL ${major} AND ${PACKAGE_FIND_VERSION_MINOR} EQUAL ${minor})
+    set(PACKAGE_VERSION_COMPATIBLE 1)
+  endif()
+
+#case 4: full version request (semver 2.0 supports major.minor.patch)
+else()
+  #here we use the exact match.
+  if(${PACKAGE_FIND_VERSION_MAJOR} EQUAL ${major} AND ${PACKAGE_FIND_VERSION_MINOR} EQUAL ${minor})
+    #exact match
+    if(${PACKAGE_FIND_VERSION_PATCH} EQUAL ${patch})
+      set(PACKAGE_VERSION_COMPATIBLE 1)
+      set(PACKAGE_VERSION_EXACT 1)
+    # we have a patch version which his higher, this should be compatible
+    elseif(${patch} GREATER ${PACKAGE_FIND_VERSION_PATCH})
+      set(PACKAGE_VERSION_COMPATIBLE 1)
+    endif()
+  endif()
+
+endif()
+
+if(${PACKAGE_VERSION_COMPATIBLE} EQUAL 1)
+	message(STATUS "found MulticamDatasetReader ${PACKAGE_VERSION}")
+endif()
+
+
+#
+# end of cmake config
+#

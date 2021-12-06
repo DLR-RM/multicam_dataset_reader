@@ -1,0 +1,12 @@
+//
+// Created by sewt_ma on 11/9/21.
+//
+
+#ifndef MDR_FILESYSTEM_CONFIG_H_IN_H
+#define MDR_FILESYSTEM_CONFIG_H_IN_H
+
+#cmakedefine HAS_STD_FILESYSTEM
+#cmakedefine HAS_EXP_FILESYSTEM
+#cmakedefine HAS_BOOST_FILESYSTEM
+
+#endif //MDR_FILESYSTEM_CONFIG_H_IN_H
