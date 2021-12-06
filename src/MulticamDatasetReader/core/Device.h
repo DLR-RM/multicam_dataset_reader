@@ -74,25 +74,49 @@ public:
 	 * Return whether this device has a RGB sensor
 	 * \return True if available, False otherwise
 	 */
-	bool has_rgb() const { return not mp_sensor_rgb; }
+	bool has_rgb() const { return (bool) mp_sensor_rgb; }
+
+	/**
+	 * Get a reference to the rgb sensor
+	 * \return RGB Sensor reference
+	 */
+	CameraSensor& get_rgb() { return *mp_sensor_rgb; }
 
 	/**
 	 * Return whether this device has a depth sensor
 	 * \return True if available, False otherwise
 	 */
-	bool has_depth() const { return not mp_sensor_depth; }
+	bool has_depth() const { return (bool)  mp_sensor_depth; }
+
+	/**
+	 * Get a reference to the depth sensor
+	 * \return Depth Sensor reference
+	 */
+	CameraSensor& get_depth() { return *mp_sensor_depth; }
 
 	/**
 	 * Return whether this device has a accel sensor
 	 * \return True if available, False otherwise
 	 */
-	bool has_accel() const { return not mp_sensor_accel; }
+	bool has_accel() const { return (bool)  mp_sensor_accel; }
+
+	/**
+	 * Get a reference to the accel sensor
+	 * \return Accel Sensor reference
+	 */
+	InertialSensor& get_accel() { return *mp_sensor_accel; }
 
 	/**
 	 * Return whether this device has a gyro sensor
 	 * \return True if available, False otherwise
 	 */
-	bool has_gyro() const { return not mp_sensor_gyro; }
+	bool has_gyro() const { return (bool)  mp_sensor_gyro; }
+
+	/**
+	 * Get a reference to the gyro sensor
+	 * \return Gyro Sensor reference
+	 */
+	InertialSensor& get_gyro() { return *mp_sensor_gyro; }
 
 	/**
 	 * Get active measurements for given time
