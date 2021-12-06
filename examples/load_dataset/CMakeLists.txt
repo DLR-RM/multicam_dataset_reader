@@ -43,7 +43,7 @@ MDR_executable_project(example_load_dataset
 #       HEADERS __headers__
 #       RESOURCES __resources__
 #       EXCLUDES __excludes__
-       INCLUDE_DIRS ${OpenCV_INCLUDE_DIRS}
+       INCLUDE_DIRS ${OpenCV_INCLUDE_DIRS} ${tclap_INCLUDE_DIRS}
        LIBRARY_DIRS ${OpenCV_LIBRARY_DIRS}
        LIBRARIES ${OpenCV_LIBS}
        DEPENDENCIES core utils
