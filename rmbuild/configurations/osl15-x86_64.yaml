@@ -81,7 +81,7 @@ dependencies:
       conan:
 
   gdal:
-    pkgconfig:
+    cmake:
       conan:
 
   tclap:
