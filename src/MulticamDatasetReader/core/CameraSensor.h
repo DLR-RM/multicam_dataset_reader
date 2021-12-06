@@ -122,6 +122,7 @@ private:
 
 	/** is the data loaded */
 	bool m_is_loaded;
+
 	/** intrinsics of this sensor */
 	cv::Mat m_intrinsics;
 };
