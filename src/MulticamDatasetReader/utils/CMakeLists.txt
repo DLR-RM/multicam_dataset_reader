@@ -75,5 +75,6 @@ if(${MDR_utils_SUPPORTED})
 
     # Create config file
     CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/Platform.config.h.in ${CMAKE_CURRENT_BINARY_DIR}/Platform.config.h)
+    INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/Platform.config.h DESTINATION ${INSTALL_INCLUDE_DIR}/utils)
 endif()
 
