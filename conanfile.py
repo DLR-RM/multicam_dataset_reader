@@ -243,3 +243,6 @@ class Multicam_DatasetConan(ConanFile):
         # if the package generates cmake config files,
         # this function patches possible abosulte paths
         cmake.patch_config_paths()
+
+    def configure(self):
+        self.options['opencv'].openexr = True
