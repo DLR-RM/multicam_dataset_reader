@@ -5,7 +5,7 @@
 #ifndef MDR_FILESYSTEM_H
 #define MDR_FILESYSTEM_H
 
-#include <Platform.config.h>
+#include "Platform.config.h"
 
 #ifdef HAS_STD_FILESYSTEM
 #include <filesystem>
