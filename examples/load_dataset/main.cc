@@ -14,35 +14,39 @@
 #include <string>
 
 int main(int argc, char** argv){
+	MDR::Log::set_log_level(MDR::Log::log_level_value::warn);
 	TCLAP::CmdLine cmd("Example Load Dataset");
 	TCLAP::ValueArg<std::string> argInput("i", "input", "Path to Dataset", true, "", "");
-	cmd.add(argInput);
-	cmd.parse(argc, argv);
 
-	MDR::Log::set_log_level(MDR::Log::log_level_value::warn);
+	try{	
+		cmd.add(argInput);
+		cmd.parse(argc, argv);
+	} catch(...)
+	{
+		MDR::Log::error("Could not parse CLI");
+		return EXIT_FAILURE;
+	}
+
+	// Load dataset
 	MDR::Dataset dataset(argInput.getValue());
 
-	std::cout << std::to_string(dataset.get_first_sampling_time()) << std::endl;
-	std::cout << std::to_string(dataset.get_last_sampling_time())  << std::endl;
-
-	double t   = dataset.get_first_sampling_time(MDR::SensorType::rgb);
-	double end = dataset.get_last_sampling_time(MDR::SensorType::rgb);
-
-	while(t < end){
-		auto measurements = dataset.get(t);
-
-		for(std::size_t i=0; i<dataset.device_count(); ++i) {
-			cv::imshow(std::to_string(i), measurements[i].rgb->matrix());
+	std::cout << std::to_string(dataset.device_count()) << " devices in dataset" << std::endl;
+	for(auto& device : dataset.get_devices()){
+		std::cout << device.get_name() << std::endl;
+		if(device.has_rgb()){
+			std::cout << "--" << device.get_rgb().get_name() << std::endl;
+			std::cout << device.get_rgb().get_intrinsics() << std::endl;
+			std::cout << device.get_rgb().get_pose() << std::endl;
+			std::cout << "" << std::endl;
 		}
-		cv::waitKey(20);
-
-		auto next_t = dataset.get_time_of_next_measurement(t, MDR::SensorType::rgb);
-		if(next_t == t){
-			break;
+		if(device.has_depth()){
+			std::cout << "--" << device.get_depth().get_name() << std::endl;
 		}
-		else{
-			t = next_t;
-			std::cout << std::to_string(t) << std::endl;
+		if(device.has_accel()){
+			std::cout << "--" << device.get_accel().get_name() << std::endl;
+		}
+		if(device.has_gyro()){
+			std::cout << "--" << device.get_gyro().get_name() << std::endl;
 		}
 	}
 
