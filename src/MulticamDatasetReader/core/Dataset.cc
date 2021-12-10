@@ -3,6 +3,7 @@
 //
 
 #include "Dataset.h"
+#include "Globals.h"
 
 #include <MulticamDatasetReader/utils/Logging.h>
 
@@ -37,6 +38,16 @@ void MDR::Dataset::load() {
 	for(const auto& path : dir_content){
 		Log::debug("Found possible device at " + path.string());
 		m_devices.emplace_back(path.stem().string(), path, true);
+	}
+
+	// check for groundtruth
+	if(fs::exists(get_path()/Globals::dataset_groundtruth)){
+		mp_groundtruth = std::make_unique<GroundTruthSensor>(
+			get_path()/Globals::dataset_groundtruth
+		);
+	}
+	else{
+		Log::warn("No " + Globals::dataset_groundtruth + " found");
 	}
 }
 

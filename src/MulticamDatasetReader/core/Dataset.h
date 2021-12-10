@@ -6,10 +6,12 @@
 #define MULTICAMDATASETREADER_DATASET_H
 
 #include "Device.h"
+#include "GroundTruthSensor.h"
 
 #include <MulticamDatasetReader/utils/Filesystem.h>
 
 #include <vector>
+#include <memory>
 
 namespace MDR {
 
@@ -93,6 +95,20 @@ public:
 	std::vector<Device>& get_devices() { return m_devices; }
 
 	/**
+	 * Get the groundtruth 
+	 * 
+	 * \return reference to GroundTruthSensor
+	 */
+	GroundTruthSensor& get_groundtruth() { return *mp_groundtruth;}
+
+	/**
+	 * Tell whether this dataset has groundtruth
+	 * 
+	 * \return True if available, False otherwise
+	 */
+	bool has_groundtruth() const { return (bool) mp_groundtruth; }
+
+	/**
 	 * Get access to device by name
 	 * \param device_name requested device name
 	 * \return reference to device
@@ -114,6 +130,8 @@ private:
 
 	/** Flag showing if this dataset was loaded */
 	bool m_is_loaded;
+
+	std::unique_ptr<GroundTruthSensor> mp_groundtruth;
 };
 
 }
