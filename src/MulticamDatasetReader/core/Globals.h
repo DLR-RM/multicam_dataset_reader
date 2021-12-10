@@ -34,6 +34,9 @@ public:
 	static std::string sensor_file_gyro;
 	static std::string frames_file_gyro;
 
+	// Dataset
+	static std::string dataset_groundtruth;
+
 public:
 	Globals() = delete;
 	Globals(Globals&) = delete;

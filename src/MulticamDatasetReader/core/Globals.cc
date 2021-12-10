@@ -23,3 +23,5 @@ std::string Globals::frames_file_accel = "accel.txt";
 std::string Globals::sensor_name_gyro = "gyro";
 std::string Globals::sensor_file_gyro = "sensor_gyro.txt";
 std::string Globals::frames_file_gyro = "gyro.txt";
+
+std::string Globals::dataset_groundtruth = "gt.txt";
