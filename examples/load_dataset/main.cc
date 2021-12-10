@@ -50,5 +50,10 @@ int main(int argc, char** argv){
 		}
 	}
 
+	if(dataset.has_groundtruth()){
+		std::cout << "--" << dataset.get_groundtruth().get_name() << std::endl;
+		std::cout << std::to_string(dataset.get_groundtruth().size()) << std::endl;
+	}
+
 	return EXIT_SUCCESS;
 }
