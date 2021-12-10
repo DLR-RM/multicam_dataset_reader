@@ -14,7 +14,7 @@
 
 namespace MDR{
 
-class Image : Measurement{
+class Image : public Measurement{
 public:
     /**
      * Create a new Image
