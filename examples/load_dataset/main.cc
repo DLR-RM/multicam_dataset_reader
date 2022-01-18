@@ -53,6 +53,7 @@ int main(int argc, char** argv){
 	if(dataset.has_groundtruth()){
 		std::cout << "--" << dataset.get_groundtruth().get_name() << std::endl;
 		std::cout << std::to_string(dataset.get_groundtruth().size()) << std::endl;
+		std::cout << dataset.get_groundtruth().get_active_data(0) << std::endl;
 	}
 
 	return EXIT_SUCCESS;
