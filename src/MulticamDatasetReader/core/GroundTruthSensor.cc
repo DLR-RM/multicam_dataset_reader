@@ -42,7 +42,7 @@ void MDR::GroundTruthSensor::parse_gt_file(){
             const auto& parts = Utility::split(line, ' ');
 
             // convert to doubles
-            std::array<double, 8> converted;
+            std::array<double, 8> converted{};
             std::transform(parts.begin(), parts.end(),
                            converted.begin(),
                            [](const std::string& s){
