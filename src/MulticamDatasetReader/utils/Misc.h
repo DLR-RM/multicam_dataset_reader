@@ -27,7 +27,9 @@ void split(const std::string &s, char delim, Out result) {
 	std::istringstream iss(s);
 	std::string item;
 	while (std::getline(iss, item, delim)) {
-		*result++ = item;
+		if(not item.empty()){
+			*result++ = item;
+		}
 	}
 }
 
