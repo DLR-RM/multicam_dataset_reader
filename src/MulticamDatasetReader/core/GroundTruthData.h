@@ -10,6 +10,8 @@
 #include "Measurement.h"
 
 #include <vector>
+#include <string>
+#include <ostream>
 
 namespace MDR{
 
@@ -51,6 +53,27 @@ public:
 private:
 	std::array<double, 8> m_data;
 };
+
+/**
+ * \brief Overloading of << operator for output of GroundTruthData
+ * \param os output stream
+ * \param data GroundTruthData
+ * \return output stream
+ */
+inline std::ostream& operator<<(std::ostream& os, const GroundTruthData& data){
+	os << "{"
+	   << std::to_string(data.t())
+	   << ": "
+	   << std::to_string(data.px()) << " "
+	   << std::to_string(data.py()) << " "
+	   << std::to_string(data.pz()) << " "
+	   << std::to_string(data.qx()) << " "
+	   << std::to_string(data.qy()) << " "
+	   << std::to_string(data.qz()) << " "
+	   << std::to_string(data.qw()) << " "
+	   << "}";
+	return os;
+}
 
 }
 
