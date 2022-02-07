@@ -49,7 +49,7 @@ public:
 	 */
 	bool is_loaded() const { return m_is_loaded; }
 
-	static bool check_if_sensor_exists(const boost::filesystem::path &path,
+	static bool check_if_sensor_exists(const fs::path &path,
 									   bool is_accel);
 
 private:

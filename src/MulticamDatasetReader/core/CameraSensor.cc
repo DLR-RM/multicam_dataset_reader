@@ -140,7 +140,7 @@ void MDR::CameraSensor::parse_sensor_file() {
 	fp.close();
 }
 
-bool MDR::CameraSensor::check_if_sensor_exists(const boost::filesystem::path &path,
+bool MDR::CameraSensor::check_if_sensor_exists(const fs::path &path,
 											   bool is_depth) {
 	if(is_depth){
 		if(not fs::exists(path/Globals::frames_file_depth)){

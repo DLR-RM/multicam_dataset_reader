@@ -111,7 +111,7 @@ void InertialSensor::parse_sensor_file() {
 	fp.close();
 }
 
-bool InertialSensor::check_if_sensor_exists(const boost::filesystem::path &path, bool is_accel) {
+bool InertialSensor::check_if_sensor_exists(const fs::path &path, bool is_accel) {
 	if(is_accel){
 		if(not fs::exists(path/Globals::frames_file_accel)){
 			return false;
