@@ -64,13 +64,12 @@ if(${MDR_utils_SUPPORTED})
     # Platform Checks
     cmake_policy(SET CMP0075 NEW)
     INCLUDE(CheckIncludeFileCXX)
-    set(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} ${Boost_LIBRARIES})
+    set(CMAKE_REQUIRED_INCLUDES ${Boost_INCLUDE_DIRS})
     CHECK_INCLUDE_FILE_CXX("filesystem" HAS_STD_FILESYSTEM)
-    CHECK_INCLUDE_FILE_CXX("experimental/filesystem" HAS_EXP_FILESYSTEM)
     CHECK_INCLUDE_FILE_CXX("boost/filesystem.hpp" HAS_BOOST_FILESYSTEM)
 
-    if(NOT HAS_STD_FILESYSTEM AND NOT HAS_EXP_FILESYSTEM AND NOT HAS_BOOST_FILESYSTEM)
-        message(FATAL_ERROR "Not filesystem found")
+    if(NOT HAS_STD_FILESYSTEM AND NOT HAS_BOOST_FILESYSTEM)
+        message(FATAL_ERROR "No filesystem found")
     endif()
 
     # Create config file
