@@ -142,7 +142,7 @@ class Multicam_DatasetConan(ConanFile):
             #self.requires("opencv/[~4]@3rdparty/unstable")
         #else:
             #self.requires("opencv/[~3]@3rdparty/unstable")
-        self.requries("opencv/[>=3]@3rdparty/stable")
+        self.requires("opencv/[>=3]@3rdparty/stable")
 
     def package_info(self):
         """package_info function:
