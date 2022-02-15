@@ -65,11 +65,13 @@ if(${MDR_utils_SUPPORTED})
     cmake_policy(SET CMP0075 NEW)
     INCLUDE(CheckIncludeFileCXX)
     set(CMAKE_REQUIRED_INCLUDES ${Boost_INCLUDE_DIRS})
+    message(${Boost_INCLUDE_DIRS})
     CHECK_INCLUDE_FILE_CXX("filesystem" HAS_STD_FILESYSTEM)
     CHECK_INCLUDE_FILE_CXX("boost/filesystem.hpp" HAS_BOOST_FILESYSTEM)
 
     if(NOT HAS_STD_FILESYSTEM AND NOT HAS_BOOST_FILESYSTEM)
-        message(FATAL_ERROR "No filesystem found")
+        message(ERROR "No filesystem found\n Maybe this is wrong. Defaulting to Boost")
+        set(HAS_BOOST_FILESYSTEM 1)
     endif()
 
     # Create config file

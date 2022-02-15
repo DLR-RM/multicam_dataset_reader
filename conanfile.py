@@ -106,7 +106,7 @@ class Multicam_DatasetConan(ConanFile):
     options = {
         # 'fPIC': [False, True],
         # 'shared': [False, True],
-        #'opencv': ['3', '4'],
+        'opencv': ['3', '4'],
     }
 
     # * default_options (dict of <option key> ; <default value>) [optional]:
@@ -116,7 +116,7 @@ class Multicam_DatasetConan(ConanFile):
     default_options = {
         # 'fPIC': True,
         # 'shared': True,
-        #'opencv': '4'
+        'opencv': '4'
     }
 
     # * source_dir (path):
@@ -142,7 +142,7 @@ class Multicam_DatasetConan(ConanFile):
             #self.requires("opencv/[~4]@3rdparty/unstable")
         #else:
             #self.requires("opencv/[~3]@3rdparty/unstable")
-        self.requries("opencv/[>=3]@3rdparty/stable")
+        self.requires("opencv/[>=3]@3rdparty/stable")
 
     def package_info(self):
         """package_info function:

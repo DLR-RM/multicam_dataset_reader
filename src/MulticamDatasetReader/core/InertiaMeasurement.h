@@ -21,6 +21,8 @@ public:
 	void unload() override;
 	bool is_loaded() const override { return true; };
 
+	std::array<double, 3> get_vector() const { return m_data; }
+
 private:
 	std::array<double, 3> m_data;
 };

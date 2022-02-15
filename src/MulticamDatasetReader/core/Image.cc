@@ -44,8 +44,12 @@ void Image::load(){
     // thread safe image loading
     if(is_depth()){
         Log::debug("Loading depth image " + path().string());
+		cv::Mat unscaled_data = cv::imread(path().string(), cv::IMREAD_ANYDEPTH);
         std::unique_lock<std::mutex> _lck(m_mutex_data);
-        m_data = cv::imread(path().string(), cv::IMREAD_ANYDEPTH);
+
+		// Create empty Mat as 32FC1
+        m_data = cv::Mat(unscaled_data.size(), CV_32FC1);
+		unscaled_data.convertTo(m_data, CV_32FC1, 0.001);
     }
     else{
         Log::debug("Loading color/sw image " + path().string());
