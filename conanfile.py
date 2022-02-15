@@ -106,7 +106,7 @@ class Multicam_DatasetConan(ConanFile):
     options = {
         # 'fPIC': [False, True],
         # 'shared': [False, True],
-        #'opencv': ['3', '4'],
+        'opencv': ['3', '4'],
     }
 
     # * default_options (dict of <option key> ; <default value>) [optional]:
@@ -116,7 +116,7 @@ class Multicam_DatasetConan(ConanFile):
     default_options = {
         # 'fPIC': True,
         # 'shared': True,
-        #'opencv': '4'
+        'opencv': '4'
     }
 
     # * source_dir (path):
