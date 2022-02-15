@@ -34,6 +34,11 @@ public:
 	static std::string sensor_file_gyro;
 	static std::string frames_file_gyro;
 
+	// United IMU
+	static std::string sensor_name_imu;
+	static std::string sensor_file_imu;
+	static std::string frames_file_imu;
+
 	// Dataset
 	static std::string dataset_groundtruth;
 
