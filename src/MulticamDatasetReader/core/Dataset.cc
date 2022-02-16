@@ -94,6 +94,10 @@ double Dataset::get_time_of_next_measurement(double t,
 	}
 }
 
+double Dataset::get_active_time(double t, SensorType type){
+	return 0;
+}
+
 std::vector<std::string> Dataset::get_device_names() const {
 	std::vector<std::string> names;
 	std::for_each(m_devices.begin(), m_devices.end(),

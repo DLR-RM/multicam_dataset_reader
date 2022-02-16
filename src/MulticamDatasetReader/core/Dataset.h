@@ -75,6 +75,15 @@ public:
 										const std::string& device_name="");
 
 	/**
+	 * Get the active time for the given sensor with respect to
+	 * the requested time.
+	 * \param t requested time
+	 * \param type requested sensor
+	 * \return active time of measurement
+	 */
+	double get_active_time(double t, SensorType type);
+
+	/**
 	 * Get the first sampling time of any sensor
 	 * \param type select sensor type, or all
 	 * \return oldest time
