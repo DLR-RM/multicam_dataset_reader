@@ -1,94 +1,103 @@
-#
-# CMakeList.txt - top-level cmake configuration for project MulticamDatasetReader
-#
-# This file is part of DLR RMC project MulticamDatasetReader
-# ATTENTION: this file is part of rmbuild installation, do not edit!
-#
+##################################################
+# CMake Project for MDR Build
+# Marco Sewtz
+# DLR, RMC - 2022
+##################################################
 
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.12)
 message(STATUS " >> using cmake version ${CMAKE_VERSION}")
 
-#
-# setup cmake for a rmbuild configuration
-#
-message(STATUS "*************** pre init project *************** ")
-include(cmake/MDRInitProject.cmake)
+project("multicam_dataset_reader")
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 #
-# setup main project
+# options
 #
-message(STATUS "*************** setup project *************** ")
-project(MulticamDatasetReader)
-
-#
-# setup cmake for a rmbuild configuration
-#
-include(cmake/MDRSetupProject.cmake)
+option(BUILD_EXAMPLES "Build examples" ON)
 
 #
-# pre-setup (correct order of targets w.r.t. dependencies)
+# includes
 #
-message(STATUS "*************** sort tragets *************** ")
-MDR_internal_sort_targets(${MDR_BUILD_TARGET_DIRS})
-
-#
-# setup build target projects
-#
-message(STATUS "*************** load targets *************** ")
-foreach(__mdr_target ${MDR_BUILD_TARGET_DIRS_SORTED})
-    add_subdirectory(${__mdr_target})
-endforeach()
+find_package(PkgConfig REQUIRED)
 
 #
-# add cmake config install rules
+# set root path and module path
 #
-include(CMakePackageConfigHelpers)
+get_filename_component(MDR_ROOT_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+get_filename_component(MDR_SOURCE_DIR "${MDR_ROOT_DIR}/src" ABSOLUTE)
+get_filename_component(MDR_EXAMPLE_DIR "${MDR_ROOT_DIR}/examples" ABSOLUTE)
+set(MDR_CMAKE_DIR "${MDR_ROOT_DIR}/cmake")
+set(MDR_MODULE_DIR "${MDR_CMAKE_DIR}/modules")
+list(APPEND CMAKE_MODULE_PATH "${MDR_MODULE_DIR}" $ENV{CMAKE_MODULE_PATH})
+get_filename_component(MDR_BUILD_DIR ${CMAKE_CURRENT_BINARY_DIR} ABSOLUTE)
 
-set(CMAKE_CONFIG_DIR lib/MulticamDatasetReader/cmake)
-set(INCLUDE_INSTALL_DIR include)
-set(LIBRARY_INSTALL_DIR lib)
-set(LIBRARY_INSTALL_DIR lib)
-set(LIBRARIES "${MDR_LIB_TARGETS}")
-
-# config file
-configure_package_config_file(
-    "cmake/templates/MulticamDatasetReaderConfig.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/MulticamDatasetReaderConfig.cmake"
-    INSTALL_DESTINATION "${CMAKE_CONFIG_DIR}"
-    PATH_VARS CMAKE_CONFIG_DIR INCLUDE_INSTALL_DIR LIBRARY_INSTALL_DIR
-)
-
-install(
-    FILES "${CMAKE_CURRENT_BINARY_DIR}/MulticamDatasetReaderConfig.cmake"
-    DESTINATION "${CMAKE_CONFIG_DIR}"
-)
-
-# version file
-configure_file(
-    "cmake/templates/MulticamDatasetReaderConfigVersion.cmake.in" "MulticamDatasetReaderConfigVersion.cmake" @ONLY
-)
-
-install(
-    FILES "${CMAKE_CURRENT_BINARY_DIR}/MulticamDatasetReaderConfigVersion.cmake"
-    DESTINATION "${CMAKE_CONFIG_DIR}"
-)
-
-# install target properties
-install(
-    FILES "${MDR_CMAKE_TARGET_PROPERTIES_FILE}"
-    DESTINATION "${CMAKE_CONFIG_DIR}"
-)
-
-# install find package files
-# intall "cmake/<config>/MulticamDatasetReader_pkg_*.cmake"
-file(GLOB MDR_CMAKE_TARGET_DEPENDENCY_FILES "${MDR_CONFIG_SETUP_DIR}/MulticamDatasetReader_pkg_*.cmake")
-if(MDR_CMAKE_TARGET_DEPENDENCY_FILES)
-    install(
-        FILES ${MDR_CMAKE_TARGET_DEPENDENCY_FILES}
-        DESTINATION "${CMAKE_CONFIG_DIR}"
-    )
+#
+# look if this is a conan build
+# this will load the "conan_paths.cmake" file into the current
+# cmake environment
+#
+if(CMAKE_TOOLCHAIN_FILE)
+    message(STATUS "Loading " ${CMAKE_TOOLCHAIN_FILE})
+    include(${CMAKE_TOOLCHAIN_FILE})
+else()
+    file(GLOB_RECURSE CONAN_PATHS_FILE "*/conan_paths.cmake")
+    if(CONAN_PATHS_FILE)
+        message(STATUS "Conan paths file at ${CONAN_PATHS_FILE}")
+        include(${CONAN_PATHS_FILE})
+    else()
+        message(STATUS "No conan paths file detected")
+    endif()
 endif()
 
 #
-# end
+# Offer the user the choice of overriding the installation directories
 #
+set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
+set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for executables")
+set(INSTALL_INCLUDE_DIR include CACHE PATH "Installation directory for header files")
+
+#
+# setup version
+#
+if(NOT DEFINED MDR_VERSION_STRING)
+    set(MDR_MAJOR_VERSION 0)
+    set(MDR_MINOR_VERSION 0)
+    set(MDR_PATCH_VERSION 0)
+    set(MDR_VERSION ${MDR_MAJOR_VERSION}.${MDR_MINOR_VERSION}.${MDR_PATCH_VERSION})
+    message(STATUS "setup default version ${MDR_VERSION}")
+else()
+    string(REPLACE "." ";" VERSION_LIST ${MDR_VERSION_STRING})
+
+    list(GET VERSION_LIST 0 MDR_MAJOR_VERSION)
+    list(GET VERSION_LIST 1 MDR_MINOR_VERSION)
+    list(GET VERSION_LIST 2 MDR_PATCH_VERSION)
+    set(MDR_VERSION ${MDR_MAJOR_VERSION}.${MDR_MINOR_VERSION}.${MDR_PATCH_VERSION})
+    message(STATUS "setup user version ${MDR_VERSION}")
+endif()
+
+#
+# set cmake build type to "RelWithDebInfo" if not otherwise specified
+#
+if(NOT CMAKE_BUILD_TYPE)
+    #valid values: Debug, Release, RelWithDebInfo and MinSizeRel.
+    set(CMAKE_BUILD_TYPE "DEBUG")
+endif()
+message(STATUS "Build type is " ${CMAKE_BUILD_TYPE})
+
+#
+# include macros
+#
+include(cmake/macros.cmake)
+
+#
+# handle modules
+#
+include_directories(${MDR_SOURCE_DIR})
+add_subdirectory(${MDR_SOURCE_DIR}/MulticamDatasetReader)
+
+include_directories(${MDR_EXAMPLE_DIR})
+if(${BUILD_EXAMPLES})
+    add_subdirectory(${MDR_EXAMPLE_DIR})
+endif()

@@ -1,1 +1,0 @@
-this folder contains project-specific rmbuild configurations
