@@ -18,10 +18,14 @@ fs::path Globals::data_path_depth      = "depth/";
 
 std::string Globals::sensor_name_accel = "accel";
 std::string Globals::sensor_file_accel = "sensor_accel.txt";
-std::string Globals::frames_file_accel = "accel.txt";
+std::string Globals::frames_file_accel = "frames_accel.txt";
 
 std::string Globals::sensor_name_gyro = "gyro";
 std::string Globals::sensor_file_gyro = "sensor_gyro.txt";
-std::string Globals::frames_file_gyro = "gyro.txt";
+std::string Globals::frames_file_gyro = "frames_gyro.txt";
+
+std::string Globals::sensor_name_imu = "imu";
+std::string Globals::sensor_file_imu = "sensor_imu.txt";
+std::string Globals::frames_file_imu = "frames_imu.txt";
 
 std::string Globals::dataset_groundtruth = "gt.txt";
